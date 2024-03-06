@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+</head>
+<body>
+    <h1>Notes</h1>
+    <form method="post">
+        <select name="color">
+            {% for color in colors %}
+                <option value="{{ color }}">{{ color }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="content" placeholder="Enter your note">
+        <button type="submit" name="action" value="add">Add Note</button>
+    </form>
+    <ul>
+        {% for note in notes %}
+            <li style="color: {{ note.color }}">
+                {{ note.content }} ({{ note.time }})
+                <form method="post" style="display: inline;">
+                    <input type="hidden" name="index" value="{{ loop.index0 }}">
+                    <input type="submit" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this note?')">
+                    <input type="button" value="edit" onclick="editNote('{{ note.content }}', '{{ note.color }}', '{{ loop.index0 }}')">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Edit Note Modal -->
+    <div id="editNoteModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <form id="editNoteForm" method="post">
+                <select name="color" id="editColor">
+                    {% for color in colors %}
+                        <option value="{{ color }}">{{ color }}</option>
+                    {% endfor %}
+                </select>
+                <input type="text" name="content" id="editContent">
+                <input type="hidden" name="index" id="editIndex">
+                <button type="submit" name="action" value="edit">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function editNote(content, color, index) {
+            document.getElementById("editColor").value = color;
+            document.getElementById("editContent").value = content;
+            document.getElementById("editIndex").value = index;
+            document.getElementById("editNoteModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("editNoteModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

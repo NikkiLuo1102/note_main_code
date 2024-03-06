@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results for "{{ query }}"</title>
+</head>
+<body>
+    <h1>Search Results for "{{ query }}"</h1>
+    <ul>
+        {% for repo in repos %}
+        <li>
+            <a href="{{ repo.html_url }}">{{ repo.name }}</a>
+            (Repository Size: {{ repo.size }}, Language: {{ repo.language }}, Last Updated: {{ repo.updated_at }})
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

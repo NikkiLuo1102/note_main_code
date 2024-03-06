@@ -1,0 +1,20 @@
+[flake8]
+# E501: line too long (max 79 characters)
+ignore = E501
+
+# Exclude some directories and files from linting
+exclude =
+    .git,
+    __pycache__,
+    docs/source/conf.py,
+    build,
+    dist
+
+# Additional rules or checks to enable
+enable-extensions = G
+
+# Maximum line length
+max-line-length = 150
+
+# Show source code for each error
+show-source = True
